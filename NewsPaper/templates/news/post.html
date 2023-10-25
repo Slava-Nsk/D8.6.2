@@ -1,0 +1,22 @@
+<!-- унаследовал шаблон -->
+{% extends 'default.html' %}
+{% load my_filters %}
+
+
+{% block title %}
+Новости
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p><b>{{ post.in_time|date:'d.M.Y' }} </b>| {{ post.text|censor }}</p>
+
+
+{% if request.user.is_active and post.type == "N" %}
+    <a href="news/{{post.pk}}/update">Изменить Новость</a>
+    {% endif %}
+{% if request.user.is_active and post.type == "A" %}
+    <a href="article/{{post.pk}}/update">Изменить Статью</a>
+    {% endif %}
+{% endblock content %}
